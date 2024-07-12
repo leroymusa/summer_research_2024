@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<robot name="expressive_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Main body -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- Omni-directional wheels -->
+  <link name="wheel_front">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.02"/>
+      </geometry>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="wheel_front_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_front"/>
+    <origin xyz="0 0.1 -0.1" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- Repeat for other omni-directional wheels -->
+  
+  <!-- Head with 360° turn capability -->
+  <joint name="head_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="head"/>
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="head">
+    <visual>
+      <geometry>
+        <sphere radius="0.08"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- Left ear -->
+  <joint name="left_ear_joint" type="revolute">
+    <parent link="head"/>
+    <child link="left_ear"/>
+    <origin xyz="0.05 0.05 0.08" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="0.1" velocity="1.0"/>
+  </joint>
+  <link name="left_ear">
+    <visual>
+      <geometry>
+        <box size="0.05 0.02 0.05"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- Right ear -->
+  <joint name="right_ear_joint" type="revolute">
+    <parent link="head"/>
+    <child link="right_ear"/>
+    <origin xyz="-0.05 0.05 0.08" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="0.1" velocity="1.0"/>
+  </joint>
+  <link name="right_ear">
+    <visual>
+      <geometry>
+        <box size="0.05 0.02 0.05"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- Tail -->
+  <joint name="tail_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="tail"/>
+    <origin xyz="0 -0.1 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="0.1" velocity="1.0"/>
+  </joint>
+  <link name="tail">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.1"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+</robot>
