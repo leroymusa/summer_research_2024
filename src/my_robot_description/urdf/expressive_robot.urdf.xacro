@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot name="expressive_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Define the world link -->
+  <link name="world"/>
+
+  <!-- Define the base link -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_robot_description/meshes/untitled.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://my_robot_description/meshes/untitled.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <!-- Joint between world and base link -->
+  <joint name="base_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Define the right ear link -->
+  <link name="right_ear">
+    <visual>
+      <geometry>
+        <mesh filename="package://my_robot_description/meshes/right_ear.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://my_robot_description/meshes/right_ear.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+  </link>
+
+  <!-- Joint between base link and right ear -->
+  <joint name="right_ear_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="right_ear"/>
+    <origin xyz="0.05 0 0" rpy="0 0 0"/> <!-- Adjust the position and orientation as needed -->
+    <axis xyz="0 1 0"/> <!-- Rotate around the Y axis -->
+    <limit effort="1.0" lower="-1.57" upper="1.57" velocity="1.0"/> <!-- Limits for the rotation -->
+  </joint>
+</robot>
